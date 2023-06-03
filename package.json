@@ -1,0 +1,15 @@
+{
+  "name": "bessalel2-desktop",
+  "version": "2.0.0",
+  "description": "bessalel 2 desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul eric Yemdji",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.0.1"
+  }
+}
