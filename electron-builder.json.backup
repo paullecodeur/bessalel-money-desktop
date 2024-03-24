@@ -1,0 +1,61 @@
+{
+  "productName": "Bessalel Money",
+  "directories": {
+    "output": "app-builds"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine":true,
+    "installerLanguages": "fr_FR",
+    "displayLanguageSelector": true,
+    "allowToChangeInstallationDirectory": true,
+    "multiLanguageInstaller": true,
+    "unicode": true
+  },
+  "files": [
+    "**/*",
+    "!*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!src/",
+    "!e2e/",
+    "!hooks/",
+    "!.angular-cli.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
+  "extraResources": [
+    {
+      "from": "src/assets",
+      "to": "../assets"
+    }
+  ],
+  "win": {
+    "icon": "dist/assets/icons",
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    ]
+  },
+  "mac": {
+    "icon": "dist",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist",
+    "target": [
+      "AppImage"
+    ]
+  }
+}

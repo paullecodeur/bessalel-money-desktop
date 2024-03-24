@@ -1,33 +1,37 @@
 {
-  "name": "electron-quick-start-typescript",
-  "version": "1.0.0",
-  "description": "A minimal Electron application written with Typescript",
+  "name": "bessalel-money",
+  "version": "1.2.7",
+  "description": "Domptez vos finances",
+  "main": "./dist/main.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js"
+    "start": "npm run build && electron ./dist/main.js",
+    "electron:window": "npm run build && npx electron-builder build --windows"
   },
-  "repository": "https://github.com/electron/electron-quick-start-typescript",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
-    "typescript"
+    "finances",
+    "devises",
+    "cash",
+    "money",
+    "business"
   ],
-  "author": "GitHub",
+  "author": "Paul Eric",
   "license": "CC0-1.0",
   "devDependencies": {
     "@types/electron": "^1.6.10",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "electron": "^24.3.0",
+    "electron-builder": "^20.44.2",
     "eslint": "^7.32.0",
+    "fs": "0.0.1-security",
+    "npx": "^10.2.2",
     "typescript": "^4.8.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "electron-progressbar": "^2.2.1",
     "express": "^4.18.2",
     "hwid": "^0.3.0",

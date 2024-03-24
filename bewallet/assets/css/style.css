@@ -793,7 +793,14 @@ progress {
 }
 
 .display-1 {
-  font-size: calc(1.625rem + 4.5vw);
+  font-size: calc(1.625rem + 0.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+
+.display-7 {
+  font-size: calc(1rem + 0.5vw);
   font-weight: 300;
   line-height: 1.2;
 }
@@ -11240,6 +11247,10 @@ a,
   font-size: 12px;
 }
 
+.size-14 {
+  font-size: 14px;
+}
+
 .size-18 {
   font-size: 18px;
 }
@@ -12542,7 +12553,8 @@ main {
   -moz-transform: none;
   z-index: 1;
   padding: 0;
-  background: transparent;
+  /* background: transparent; */
+  background: #000;
   border-radius: 0;
   color: #fff !important;
   z-index: 0;
@@ -13109,7 +13121,7 @@ a.card {
 }
 
 .menu-open .footer {
-  margin-bottom: -80px;
+  margin-bottom: -160px;
 }
 
 .footer-info {

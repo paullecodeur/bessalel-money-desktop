@@ -9,9 +9,6 @@ let win: BrowserWindow = null;
 const fs = require('fs');
 const shell = require('electron').shell;
 
-const exec = require('child_process');
-
-
 const express = require('express');
 
 const appExpress = express();
@@ -19,6 +16,9 @@ const port = 5555; // le port sur lequel notre API HTTP ecoutera. il est recomma
 
 const args = process.argv.slice(1);
 const serve: boolean = args.some(val => val === '--serve');
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // configuration de notre api
 appExpress.get('/', async (req: any, res: any) => {
@@ -40,13 +40,30 @@ appExpress.get('/hwid', async (req: any, res: any) => {
 
 });
 
-appExpress.get('/bessalelmoney/update', async (req: any, res: any) => {
 
+// Middleware cors pour autoriser les requêtes cross-origin
+appExpress.use(cors());
+
+// Middleware body-parser pour analyser le corps des requêtes POST
+appExpress.use(bodyParser.urlencoded({
+  extended: false
+}));
+appExpress.use(bodyParser.json());
+
+
+// Route POST pour recuperer les données
+appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
+
+
+  
 
   // const fileURL = 'http://127.0.0.1:8000/mediatheque/1386700454_71199_1200x667x0.jpg';
   // const fileURL = 'https://legiafrica.com/uploads/documents/THESE-JOELLE-REUNIE-soutenue.pdf';
-  const fileURL = 'http://127.0.0.1:8000/mediatheque/anniv.mp4';
-  
+  // const fileURL = 'http://127.0.0.1:8000/mediatheque/anniv.mp4';
+
+  console.log('recuperation paramètre post:', req.body);
+
+  const fileURL = req.body.link;
   
   // const fileURL = link;
 
@@ -199,18 +216,24 @@ function downloadFile(configuration: any) {
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
+    // height: 600,
+    show: false,
+    icon: path.join(__dirname, 'assets/icons/android-chrome-512x512.png'),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    width: 800,
+    // width: 800,
   });
+
+  mainWindow.setMenuBarVisibility(false);
+  mainWindow.maximize();
+  mainWindow.show();
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "../bewallet/index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   
 }
 
