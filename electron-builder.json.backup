@@ -19,7 +19,6 @@
     "!LICENSE.md",
     "!package.json",
     "!package-lock.json",
-    "!src/",
     "!e2e/",
     "!hooks/",
     "!.angular-cli.json",
@@ -35,7 +34,7 @@
     }
   ],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "src/assets/icons",
     "target": [
       {
         "target": "nsis",
@@ -47,13 +46,13 @@
     ]
   },
   "mac": {
-    "icon": "dist",
+    "icon": "src",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "dist",
+    "icon": "src",
     "target": [
       "AppImage"
     ]

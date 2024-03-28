@@ -216,21 +216,21 @@ function downloadFile(configuration: any) {
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    // height: 600,
+    width: 380,
+    height: 740,
     show: false,
-    icon: path.join(__dirname, 'assets/icons/android-chrome-512x512.png'),
+    icon: path.join(__dirname, '../src/angularbuild/assets/favicon/android-chrome-512x512.png'),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    // width: 800,
   });
 
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.maximize();
+  //mainWindow.maximize();
   mainWindow.show();
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "../bewallet/index.html"));
+  mainWindow.loadFile(path.join(__dirname, "../src/angularbuild/index.html"));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();

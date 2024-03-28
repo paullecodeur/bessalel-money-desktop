@@ -12,14 +12,29 @@
     "multiLanguageInstaller": true,
     "unicode": true
   },
+  "files": [
+    "**/*",
+    "!*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!e2e/",
+    "!hooks/",
+    "!.angular-cli.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
   "extraResources": [
     {
-      "from": "dist/assets",
-      "to": "../assets"
+      "from": "src/angularbuild/assets/favicon",
+      "to": "../src/angularbuild/assets/favicon"
     }
   ],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "src/angularbuild/assets/favicon",
     "target": [
       {
         "target": "nsis",
@@ -31,13 +46,13 @@
     ]
   },
   "mac": {
-    "icon": "dist",
+    "icon": "src",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "dist",
+    "icon": "src",
     "target": [
       "AppImage"
     ]
