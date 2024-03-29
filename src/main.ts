@@ -221,6 +221,52 @@ function downloadFile(configuration: any) {
   });
 }
 
+
+function autoUdpaterdownload(configuration: any) {
+
+  return new Promise(function(resolve, reject) {
+
+      /* const progressBar = new ProgressBar({
+          // indeterminate: false,
+          text: 'Veuillez patienter, la mise jour est en cours de téléchargement...',
+          detail: 'Mise à jour',
+      }); */
+
+      const progressBar = new ProgressBar({
+              indeterminate: false,
+              title: 'Mise à jour',
+              text: 'Veuillez patienter !',
+              detail: 'Mise à jour en cours de téléchargement...',
+              browserWindow: {
+                  parent: win,
+                  webPreferences: {
+                      nodeIntegration: true,
+                  },
+              },
+      });
+
+      
+      // Get progress if callback exists
+      if (configuration.hasOwnProperty('onProgress')) {
+
+        autoUpdater.on("download-progress", (progressObj: any) => {
+          
+          configuration.onProgress(progressObj.percent, progressBar);
+
+        });
+
+          
+      } else {
+          
+      }
+
+      /* req.on('end', function() {
+          progressBar.setCompleted();
+          resolve('');
+      }); */
+  });
+}
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -273,16 +319,35 @@ app.whenReady().then(() => {
 
 /*New Update Available*/
 autoUpdater.on("update-available", (info: any) => {
+  
   //curWindow.showMessage(`Update available. Current version ${app.getVersion()}`);
   let pth = autoUpdater.downloadUpdate();
   //console.log(pth);
-  dialog.showMessageBox(null, {
+  /* dialog.showMessageBox(null, {
     type: 'info',
     title:'Bessalel Money',
     message:'update-available',
     buttons: ['ok']
+  }); */
+
+
+  autoUdpaterdownload({
+      onProgress: function (percent:any, progressWin:any) {
+          // tslint:disable-next-line:no-bitwise
+          const percentage = (Math.round(percent * 100) / 100) | 0 ;
+          // progressWin.detail = percentage + '% | ' + received + ' bytes out of ' + total + ' bytes.';
+          progressWin.detail = 'Téléchargement mise jour en cours (' + percentage + ' %)...';
+          // console.log(percentage + '% | ' + received + ' bytes out of ' + total + ' bytes.');
+      }
+  }).then(function() {
+
+      // contents.send('about', []);
+      //  app.quit();
+      // autoUpdater.autoInstallOnAppQuit();
+
   });
-  //curWindow.showMessage(pth);
+
+
 });
 
 autoUpdater.on("update-not-available", (info: any) => {
@@ -298,14 +363,17 @@ autoUpdater.on("update-not-available", (info: any) => {
 
 /*Download Completion Message*/
 autoUpdater.on("update-downloaded", (info: any) => {
+
   //console.log(info);
   dialog.showMessageBox(null, {
     type: 'info',
-    title:'Bessalel Money',
-    message:'update-downloaded',
-    buttons: ['ok']
+    title:'Mise à jour disponible',
+    message:'Une nouvelle version a été téléchargée. voulez-vous redémarrer maintenant pour appliquer la mise à jour ?',
+    buttons: ['Restart', 'Later']
   });
+
   //curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
+
 });
 
 autoUpdater.on("error", (error: any) => {

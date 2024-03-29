@@ -48,8 +48,7 @@
     "publish": {
       "provider": "github",
       "owner": "paullecodeur",
-      "repo": "bessalel-money-desktop",
-      "useMultipleRangeRequest": false
+      "repo": "bessalel-money-desktop"
     }
   },
   "mac": {
