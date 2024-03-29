@@ -48,7 +48,7 @@
     "publish": {
       "provider": "github",
       "owner": "paullecodeur",
-      "repo": "lifemarket",
+      "repo": "bessalel-money-desktop",
       "useMultipleRangeRequest": false
     }
   },
