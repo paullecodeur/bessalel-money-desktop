@@ -17,7 +17,7 @@
     "money",
     "business"
   ],
-  "author": "Paul Eric",
+  "author": "Bessalel Digital",
   "license": "CC0-1.0",
   "devDependencies": {
     "@types/electron": "^1.6.10",
@@ -33,6 +33,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "electron-progressbar": "^2.2.1",
+    "electron-updater": "^6.1.8",
     "express": "^4.18.2",
     "hwid": "^0.3.0",
     "request": "^2.88.2"

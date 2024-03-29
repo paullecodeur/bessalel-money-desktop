@@ -1,4 +1,5 @@
 {
+  "appId": "net.bessalel.money",
   "productName": "Bessalel Money",
   "directories": {
     "output": "app-builds"
@@ -43,7 +44,13 @@
           "ia32"
         ]
       }
-    ]
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "paullecodeur",
+      "repo": "lifemarket",
+      "useMultipleRangeRequest": false
+    }
   },
   "mac": {
     "icon": "src",

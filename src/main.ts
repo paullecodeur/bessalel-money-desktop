@@ -19,6 +19,14 @@ const serve: boolean = args.some(val => val === '--serve');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { autoUpdater, AppUpdater } = require("electron-updater");
+
+const { dialog } = require("electron");
+
+
+//Basic flags
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 // configuration de notre api
 appExpress.get('/', async (req: any, res: any) => {
@@ -253,11 +261,62 @@ app.whenReady().then(() => {
 
   createWindow();
 
+  autoUpdater.checkForUpdates();
+
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+
+/*New Update Available*/
+autoUpdater.on("update-available", (info: any) => {
+  //curWindow.showMessage(`Update available. Current version ${app.getVersion()}`);
+  let pth = autoUpdater.downloadUpdate();
+  //console.log(pth);
+  dialog.showMessageBox(null, {
+    type: 'info',
+    title:'Bessalel Money',
+    message:'update-available',
+    buttons: ['ok']
+  });
+  //curWindow.showMessage(pth);
+});
+
+autoUpdater.on("update-not-available", (info: any) => {
+  // console.log(info);
+  dialog.showMessageBox(null, {
+    type: 'info',
+    title:'Bessalel Money',
+    message:'update-not-available',
+    buttons: ['ok']
+  });
+  //curWindow.showMessage(`No update available. Current version ${app.getVersion()}`);
+});
+
+/*Download Completion Message*/
+autoUpdater.on("update-downloaded", (info: any) => {
+  //console.log(info);
+  dialog.showMessageBox(null, {
+    type: 'info',
+    title:'Bessalel Money',
+    message:'update-downloaded',
+    buttons: ['ok']
+  });
+  //curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
+});
+
+autoUpdater.on("error", (error: any) => {
+  // console.log(info);
+  dialog.showMessageBox(null, {
+    type: 'error',
+    title:'Bessalel Money',
+    message:error.message,
+    buttons: ['ok']
+  });
+  //curWindow.showMessage(info);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
