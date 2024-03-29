@@ -28,6 +28,7 @@ const { dialog } = require("electron");
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
 
+
 // configuration de notre api
 appExpress.get('/', async (req: any, res: any) => {
    // res.send('bienvenue sur notre L\'api BEWALEL');
@@ -63,9 +64,7 @@ appExpress.use(bodyParser.json());
 appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
 
 
-  
-
-  // const fileURL = 'http://127.0.0.1:8000/mediatheque/1386700454_71199_1200x667x0.jpg';
+  /* // const fileURL = 'http://127.0.0.1:8000/mediatheque/1386700454_71199_1200x667x0.jpg';
   // const fileURL = 'https://legiafrica.com/uploads/documents/THESE-JOELLE-REUNIE-soutenue.pdf';
   // const fileURL = 'http://127.0.0.1:8000/mediatheque/anniv.mp4';
 
@@ -77,8 +76,6 @@ appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
 
   // butterfly-wallpaper.jpeg
   const filename = getFilenameFromUrl(fileURL);
-  
-
 
   let downloadsFolder = '';
   if (serve) {
@@ -112,33 +109,20 @@ appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
       setTimeout(() => {
 
           shell.openPath(finalPath);
-          /* exec(finalPath, (err: any, stdout: any, stderr: any) => {
-
-            if(err) {
-              console.error ('Erreur lors du lancement de l\'exécutable: ', err);
-            }
-
-          }); */
+      
           app.quit();
 
       }, 3000);
-
-      // shell.openItem('\\putty.exe');
-
-      /* child(finalPath, parameters, function(err, data) {
-          console.log(err);
-          console.log(data.toString());
-      }); */
 
 
   });
 
   const id = await getHWID();
   const data = {data: 'bessale money 2.3.4'};
-  res.json(data);
+  res.json(data); */
 
-  /* const id = await getHWID();
-  res.send(id); */
+  autoUpdater.checkForUpdates();
+
 
 });
 
@@ -250,8 +234,12 @@ function autoUdpaterdownload(configuration: any) {
       if (configuration.hasOwnProperty('onProgress')) {
 
         autoUpdater.on("download-progress", (progressObj: any) => {
+
+          /* let log_message = 'Download speed: ' + progressObj.bytesPerSecond
+          log_message = log_message + ' - Downloaded ' + progressObj.percent + '%'
+          log_message = log_message + ' (' + progressObj.transferred + '/' + progressObj.total + ')' */
           
-          configuration.onProgress(progressObj.percent, progressBar);
+          configuration.onProgress(progressObj.percent, progressObj.transferred, progressObj.total, progressBar);
 
         });
 
@@ -259,6 +247,33 @@ function autoUdpaterdownload(configuration: any) {
       } else {
           
       }
+
+      /*Download Completion Message*/
+      autoUpdater.on("update-downloaded", (info: any) => {
+
+        //console.log(info);
+        dialog.showMessageBox(null, {
+          type: 'info',
+          title:'Mise à jour disponible',
+          message:'Une nouvelle version de l\'application est disponible. voulez-vous l\'installer maintenant ?',
+          buttons: ['Installer maintenant', 'Plus tard'],
+          defaultId:0
+        }).then((response)=> {
+
+            progressBar.close();
+
+            if(response.response === 0) {
+              
+              autoUpdater.autoInstallOnAppQuit();
+              app.quit();
+
+            }
+
+        });
+
+        //curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
+
+      });
 
       /* req.on('end', function() {
           progressBar.setCompleted();
@@ -307,7 +322,7 @@ app.whenReady().then(() => {
 
   createWindow();
 
-  autoUpdater.checkForUpdates();
+  // autoUpdater.checkForUpdates();
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
@@ -319,7 +334,7 @@ app.whenReady().then(() => {
 
 /*New Update Available*/
 autoUpdater.on("update-available", (info: any) => {
-  
+
   //curWindow.showMessage(`Update available. Current version ${app.getVersion()}`);
   let pth = autoUpdater.downloadUpdate();
   //console.log(pth);
@@ -332,11 +347,14 @@ autoUpdater.on("update-available", (info: any) => {
 
 
   autoUdpaterdownload({
-      onProgress: function (percent:any, progressWin:any) {
+      onProgress: function (percent:any, received:any, total:any, progressWin:any) {
           // tslint:disable-next-line:no-bitwise
           const percentage = (Math.round(percent * 100) / 100) | 0 ;
           // progressWin.detail = percentage + '% | ' + received + ' bytes out of ' + total + ' bytes.';
-          progressWin.detail = 'Téléchargement mise jour en cours (' + percentage + ' %)...';
+          if(percentage < 100) { // pour ne pas fermer le progressBar avant l'evenement 'update-downloaded' de autoUpdater qui  ferme le progressBar  car lorsque progressBar.value = 100 il se ferme seule
+            progressWin.value = percentage;
+            progressWin.detail = 'Téléchargement mise jour en cours (' + percentage + ' %)...';
+          }
           // console.log(percentage + '% | ' + received + ' bytes out of ' + total + ' bytes.');
       }
   }).then(function() {
@@ -354,33 +372,20 @@ autoUpdater.on("update-not-available", (info: any) => {
   // console.log(info);
   dialog.showMessageBox(null, {
     type: 'info',
-    title:'Bessalel Money',
-    message:'update-not-available',
+    title:'Mise à jour',
+    message:'Aucune mise à jour disponible pour l\'instant',
     buttons: ['ok']
   });
   //curWindow.showMessage(`No update available. Current version ${app.getVersion()}`);
 });
 
-/*Download Completion Message*/
-autoUpdater.on("update-downloaded", (info: any) => {
 
-  //console.log(info);
-  dialog.showMessageBox(null, {
-    type: 'info',
-    title:'Mise à jour disponible',
-    message:'Une nouvelle version a été téléchargée. voulez-vous redémarrer maintenant pour appliquer la mise à jour ?',
-    buttons: ['Restart', 'Later']
-  });
-
-  //curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
-
-});
 
 autoUpdater.on("error", (error: any) => {
   // console.log(info);
   dialog.showMessageBox(null, {
     type: 'error',
-    title:'Bessalel Money',
+    title:'Mise à jour',
     message:error.message,
     buttons: ['ok']
   });

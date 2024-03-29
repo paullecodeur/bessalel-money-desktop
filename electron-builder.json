@@ -9,7 +9,7 @@
     "perMachine":true,
     "installerLanguages": "fr_FR",
     "displayLanguageSelector": true,
-    "allowToChangeInstallationDirectory": false,
+    "allowToChangeInstallationDirectory": true,
     "multiLanguageInstaller": true,
     "unicode": true
   },
