@@ -264,7 +264,7 @@ function autoUdpaterdownload(configuration: any) {
 
             if(response.response === 0) {
               
-              autoUpdater.autoInstallOnAppQuit();
+              // autoUpdater.autoInstallOnAppQuit();
               app.quit();
 
             }
@@ -322,6 +322,9 @@ app.whenReady().then(() => {
 
   createWindow();
 
+
+  
+
   // autoUpdater.checkForUpdates();
 
   app.on("activate", function () {
@@ -361,7 +364,6 @@ autoUpdater.on("update-available", (info: any) => {
 
       // contents.send('about', []);
       //  app.quit();
-      // autoUpdater.autoInstallOnAppQuit();
 
   });
 
