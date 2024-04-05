@@ -275,6 +275,19 @@ function autoUdpaterdownload(configuration: any) {
 
       });
 
+      autoUpdater.on("error", (error: any) => {
+        // console.log(info);
+        progressBar.close();
+        
+        dialog.showMessageBox(null, {
+          type: 'error',
+          title:'Mise à jour',
+          message:error.message,
+          buttons: ['ok']
+        });
+        //curWindow.showMessage(info);
+      });
+
       /* req.on('end', function() {
           progressBar.setCompleted();
           resolve('');
@@ -383,16 +396,7 @@ autoUpdater.on("update-not-available", (info: any) => {
 
 
 
-autoUpdater.on("error", (error: any) => {
-  // console.log(info);
-  dialog.showMessageBox(null, {
-    type: 'error',
-    title:'Mise à jour',
-    message:error.message,
-    buttons: ['ok']
-  });
-  //curWindow.showMessage(info);
-});
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
