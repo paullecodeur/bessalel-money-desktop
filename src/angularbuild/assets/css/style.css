@@ -3845,7 +3845,7 @@ fieldset:disabled .btn {
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: var(--fimobile-theme-color);;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
@@ -4075,7 +4075,7 @@ fieldset:disabled .btn {
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #3c63e2;
+  background-color: var(--fimobile-theme-color);
 }
 
 .dropdown-item.disabled, .dropdown-item:disabled {
@@ -13357,7 +13357,7 @@ a.card {
 }
 
 .dark-mode a:not(.btn):not(.list-group-item) {
-  --fimobile-theme-color: #638ef1;
+  --fimobile-theme-color: var(--fimobile-theme-color);;
 }
 
 .dark-mode a:not(.btn):not(.list-group-item):focus, .dark-mode a:not(.btn):not(.list-group-item):hover, .dark-mode a:not(.btn):not(.list-group-item):active {
