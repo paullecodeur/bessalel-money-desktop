@@ -3834,6 +3834,8 @@ fieldset:disabled .btn {
   margin-left: 0;
 }
 
+
+
 .dropdown-menu {
   position: absolute;
   z-index: 1000;
@@ -3845,7 +3847,7 @@ fieldset:disabled .btn {
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: var(--fimobile-theme-color);;
+  background-color: var(--fimobile-theme-color);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
