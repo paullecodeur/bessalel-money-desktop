@@ -53,6 +53,54 @@
   </app-root>
 
   <!-- Add required other and libraries -->
-<script src="runtime.3226ae104b7650d45986.js" defer></script><script src="polyfills.c8f36983ffddffd27471.js" defer></script><script src="styles.42a19d32e66c2e4e9e03.js" defer></script><script src="scripts.d5a5bbdad4e8bc1e1b46.js" defer></script><script src="main.a21a6563d0bf217426c9.js" defer></script></body>
+
+
+  
+  <!-- code poour cordova  -->
+  <script>
+
+   
+    /*
+     pour corriger le bogue du bouton de retour matériel (naviguer en arrière) qui casse le style la page et faisant parfois planter l'application lors du changement de route.
+     
+     Ce bogue ne se produit lorsqu'on utilise angular dans scordova. Observation : ne se produit que lorsqu'on inclut cordova.js dans index.html
+
+     explication :
+      Si vous mettez une application Angular Single Page dans une application Cordova, tout host listener "document:*" (par exemple "document:click") ne sera pas déclenché avec une mise à jour de la zone. Cela signifie qu'Angular n'exécute pas la détection de changement pour voir s'il y a une mise à jour à traiter dans la vue, etc.
+
+      La raison en est que Cordova est en train de monkey-patching window.addEventListener et document.addEventListener. Mais attendez ! Zone.js n'est-il pas en train de les monkey-patcher aussi ? Oui, en effet. Mais cela se fait directement sur le prototype d'EventTarget. Cordova assigne cependant une nouvelle fonction à ces méthodes. Et voici la partie problématique :
+
+      Cela casse l'héritage du prototype. Zone.js n'est plus impliqué ! Maintenant, tout écouteur d'événement ajouté ne s'exécutera pas dans une zone (et ne déclenchera pas la détection de changement).
+
+      Mais que pourriez-vous faire ? Peut-être appeler le run de NgZone à chaque fois dans votre callback ? Cela déclencherait une détection de changement globale inutile dans un environnement non-Cordova. Ce n'est pas vraiment la meilleure idée. Pourrions-nous en quelque sorte restaurer l'héritage du prototype précédent ? Oui, c'est possible ! Mais nous devons d'abord le casser nous-mêmes ;)
+    */
+
+    (function () {
+      'use strict';
+
+      window.addEventListener = function () {
+        EventTarget.prototype.addEventListener.apply(this, arguments);
+      };
+
+      window.removeEventListener = function () {
+        EventTarget.prototype.removeEventListener.apply(this, arguments);
+      };
+
+      document.addEventListener = function () {
+        EventTarget.prototype.addEventListener.apply(this, arguments);
+      };
+
+      document.removeEventListener = function () {
+        EventTarget.prototype.removeEventListener.apply(this, arguments);
+      };
+    })();
+  </script>
+  <script src="cordova.js"></script>
+  <!-- <script src="js/index.js"></script> -->
+
+
+<script src="runtime.3226ae104b7650d45986.js" defer></script><script src="polyfills.c8f36983ffddffd27471.js" defer></script><script src="styles.42a19d32e66c2e4e9e03.js" defer></script><script src="scripts.d5a5bbdad4e8bc1e1b46.js" defer></script><script src="main.7a7ad41ddc3bd9bbbf29.js" defer></script></body>
+
+  
 
 </html>
