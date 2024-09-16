@@ -1,6 +1,6 @@
 {
   "name": "bessalel-money",
-  "version": "1.6.9",
+  "version": "1.7.3",
   "description": "Domptez vos finances",
   "main": "./dist/main.js",
   "scripts": {
