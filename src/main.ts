@@ -1,4 +1,9 @@
-import { app, BrowserWindow } from "electron";
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { app, BrowserWindow, Menu } from "electron";
 import * as path from "path";
 import { getHWID } from 'hwid';
 // const Store = require('electron-store');
@@ -24,6 +29,8 @@ const { autoUpdater, AppUpdater } = require("electron-updater");
 const { dialog } = require("electron");
 
 
+
+
 //Basic flags
 autoUpdater.autoDownload = false;
 autoUpdater.autoInstallOnAppQuit = true;
@@ -31,6 +38,7 @@ autoUpdater.autoInstallOnAppQuit = true;
 
 // configuration de notre api
 appExpress.get('/', async (req: any, res: any) => {
+  // console.log('recuperation paramètre post:', req.body);
    // res.send('bienvenue sur notre L\'api BEWALEL');
    const id = await getHWID();
    const data = {data: id};
@@ -63,7 +71,7 @@ appExpress.use(bodyParser.json());
 // Route POST pour recuperer les données
 appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
 
-
+  console.log('recuperation paramètre post:', req.body);
   /* // const fileURL = 'http://127.0.0.1:8000/mediatheque/1386700454_71199_1200x667x0.jpg';
   // const fileURL = 'https://legiafrica.com/uploads/documents/THESE-JOELLE-REUNIE-soutenue.pdf';
   // const fileURL = 'http://127.0.0.1:8000/mediatheque/anniv.mp4';
@@ -122,6 +130,41 @@ appExpress.post('/bessalelmoney/update', async (req: any, res: any) => {
   res.json(data); */
 
   autoUpdater.checkForUpdates();
+
+
+});
+
+// Route POST pour recuperer les données
+appExpress.post('/bessalelmoney/printblob', async (req: any, res: any) => {
+
+
+  // const fileURL = 'http://127.0.0.1:8000/mediatheque/1386700454_71199_1200x667x0.jpg';
+  // const fileURL = 'https://legiafrica.com/uploads/documents/THESE-JOELLE-REUNIE-soutenue.pdf';
+  // const fileURL = 'http://127.0.0.1:8000/mediatheque/anniv.mp4';
+
+  // console.log('recuperation paramètre post:', req.body);
+
+  const fileURL = req.body.link;
+
+  console.log('recuperation lien blob:', req.body.link);
+
+  res.json(req.body.link);
+  
+
+  /* const filename = getFilenameFromUrl(fileURL);
+
+  let downloadsFolder = '';
+  if (serve) {
+      // this.dataSubFolder = '/';
+      downloadsFolder = electron.app.getPath('userData');
+  } else {
+      // downloadsFolder = remote.app.getAppPath();
+      downloadsFolder = electron.app.getPath('userData');
+  }
+
+  console.log('downloadsFolder: ', downloadsFolder);
+
+  const finalPath = downloadsFolder + '/' + filename; */
 
 
 });
@@ -307,7 +350,11 @@ function createWindow() {
     },
   });
 
-  mainWindow.setMenuBarVisibility(false);
+  // on masque tous le menu de cette fenetre
+  //mainWindow.setMenuBarVisibility(true);
+  // on masque tous les menus de toutes les fenêtres
+  Menu.setApplicationMenu(null);
+
   //mainWindow.maximize();
   mainWindow.show();
 
@@ -352,7 +399,7 @@ app.whenReady().then(() => {
 autoUpdater.on("update-available", (info: any) => {
 
   //curWindow.showMessage(`Update available. Current version ${app.getVersion()}`);
-  let pth = autoUpdater.downloadUpdate();
+  const pth = autoUpdater.downloadUpdate();
   //console.log(pth);
   /* dialog.showMessageBox(null, {
     type: 'info',
