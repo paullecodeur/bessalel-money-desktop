@@ -36,6 +36,7 @@
     "electron-updater": "^6.1.8",
     "express": "^4.18.2",
     "hwid": "^0.3.0",
+    "node-machine-id": "^1.1.12",
     "request": "^2.88.2"
   }
 }

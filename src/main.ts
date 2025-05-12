@@ -6,6 +6,7 @@
 import { app, BrowserWindow, Menu } from "electron";
 import * as path from "path";
 import { getHWID } from 'hwid';
+import { machineIdSync } from 'node-machine-id';
 // const Store = require('electron-store');
 const electron = require('electron');
 const request = require('request');
@@ -49,6 +50,18 @@ appExpress.get('/', async (req: any, res: any) => {
 appExpress.get('/hwid', async (req: any, res: any) => {
 
   const id = await getHWID();
+  const data = {data: id};
+  res.json(data);
+
+  /* const id = await getHWID();
+  res.send(id); */
+
+});
+
+
+appExpress.get('/machine-id', async (req: any, res: any) => {
+
+  const id =  machineIdSync();
   const data = {data: id};
   res.json(data);
 
