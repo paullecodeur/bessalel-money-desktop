@@ -2,7 +2,7 @@
 MIT
 The MIT License
 
-Copyright (c) 2019 Google LLC.
+Copyright (c) 2021 Google LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -118,7 +118,7 @@ bootstrap-icons
 MIT
 The MIT License (MIT)
 
-Copyright (c) 2019-2023 The Bootstrap Authors
+Copyright (c) 2019-2024 The Bootstrap Authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -179,7 +179,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 core-js
 MIT
-Copyright (c) 2014-2021 Denis Pushkarev
+Copyright (c) 2014-2025 Denis Pushkarev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -234,7 +234,7 @@ MIT
 dompurify
 (MPL-2.0 OR Apache-2.0)
 DOMPurify
-Copyright 2024 Dr.-Ing. Mario Heiderich, Cure53
+Copyright 2025 Dr.-Ing. Mario Heiderich, Cure53
 
 DOMPurify is free software; you can redistribute it and/or modify it under the
 terms of either:
@@ -1638,7 +1638,7 @@ zone.js
 MIT
 The MIT License
 
-Copyright (c) 2010-2020 Google LLC. https://angular.io/license
+Copyright (c) 2010-2022 Google LLC. https://angular.io/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
