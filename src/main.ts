@@ -34,6 +34,7 @@ const { dialog } = require("electron");
 
 //Basic flags
 autoUpdater.autoDownload = false;
+//autoUpdater.forceDevUpdateConfig = true;
 autoUpdater.autoInstallOnAppQuit = true;
 
 
