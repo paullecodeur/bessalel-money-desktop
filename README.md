@@ -41,7 +41,7 @@ npm run watch
 
 ## Build ans publish for autoupdate
 
-changer le numero de version version dasn le fichier package.json,  une fois la release créer et les fichiers importé dans le dépot git modifier les noms du fichier .exe et exe.blockmap pour qu'il correspond au nom mentionner dans latest.yml sinon la mise à jour pourrai déclencher une erreur 404 (not found). Ensuit lancer la commande
+# changer le numero de version version dasn le fichier package.json,  une fois la release créer et les fichiers importé dans le dépot git modifier les noms du fichier .exe et exe.blockmap pour qu'il correspond au nom mentionner dans latest.yml sinon la mise à jour pourrai déclencher une erreur 404 (not found). Ensuit lancer la commande
 
 npm run electron:window
 
